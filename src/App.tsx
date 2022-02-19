@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import httpTrigger from '../api/testApi/index'
 
-import logo from './logo.svg';
+
 import './App.css';
 
 function App() {
