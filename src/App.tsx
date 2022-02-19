@@ -1,25 +1,49 @@
+import { AxiosError } from 'axios';
 import React, { useState, useEffect } from 'react';
-// import httpTrigger from '../api/testApi/index'
+import apiAx from './apiAx'
 
 
 import './App.css';
 
 function App() {
+ //AXIOS CALL
+  const [posts , setPosts] = useState([]);
+
+  useEffect(() =>{
+
+    const fetchResponse = async () =>{
+      try{
+
+        const response = await apiAx.get('/api/testApi');
+        setPosts(response.data);
+
+      }catch(err:any){
+
+        if(err.response){
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        }else{
+          console.log(`Error: ${err.message}`)
+        }
+
+        
+      }
+    }
+
+    fetchResponse();
+
+  }, [])
 
 
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    (async function () {
-      const { body } = await( await fetch(`/api/testApi`)).json();
-      console.log(body);
-      setData(body);
-    })();
-  });
+  
   return (
     <div className="App">
-
-    <div>{data}</div>
+    {/* Axios call */}
+    <h1>The Api is...</h1>
+    <div>
+      {posts}
+    </div>
       
     </div>
   );
